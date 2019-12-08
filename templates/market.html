@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for item in items %}
+        <h1>{{item['title']}}</h1>
+        <p>{{item['description']}}</p>
+        <p>{{item['price']}}</p>
+        <p>posting by {{item['username']}}</p>
+    {% endfor %}
+
+<form action='/home/removed' method='POST'>
+    <button type='submit'>back to listings</button>
+    <input type='hidden' value='{{login.username}}' name='username'>
+</form>
+
+{% endblock %}

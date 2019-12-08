@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{login.username}}</h1>
+
+    {% for item in items %}
+        <h1>{{item['title']}}</h1>
+        <p>{{item['description']}}</p>
+        <p>{{item['price']}}</p>
+        <form action='/home/removed' method='POST'>
+            <button type='submit'>delete posting</button>
+            <input type='hidden' value="{{item['_id']}}" name='objid'>
+            <input type='hidden' value="{{login.username}}" name='username'>
+        </form>
+    {% endfor %}
+
+<!-- get all the users posted items and list them card style -->
+<form action='/marketplace' method='POST'>
+    <h2>Item title</h2>
+    <p><input type='text' name='title'></p>
+    <h2>Item description</h2>
+    <p><textarea id='playlist-video-ids' name='description' rows='5'></textarea></p>
+    <h2>Name your price</h2>
+    <p><input type='number' name='price'></p>
+    <input type='hidden' value='{{login.username}}' name='username'>
+    <button type=submit>Post item!</button>
+</form>
+
+
+{% endblock %}
