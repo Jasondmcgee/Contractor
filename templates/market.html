@@ -1,15 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for item in items %}
-        <h1>{{item['title']}}</h1>
-        <p>{{item['description']}}</p>
-        <p>{{item['price']}}</p>
-        <p>posting by {{item['username']}}</p>
-    {% endfor %}
+<div class='jumbotron'>
+    <h1>Welcome to random market!</h1>
+    <p>A place where you'll never know what you'll find</p>
+</div>
 
+<div class='row'>
+    {% for item in items %}
+    <div class='col-sm-6'>
+    <div class='card'>
+    <div class='card-body'>
+        <h1 class='card-title'>{{item['title']}}</h1>
+        <p class="card-text">{{item['description']}}</p>
+        <p class="card-text">for the cheap price of ${{item['price']}}!!!</p>
+        <p class="card-text">posting by {{item['username']}}</p>
+        <form action="/item/{{ item['_id'] }}" method='GET'>
+            <button class='btn' type="submit">View Item</button>
+            <input type='hidden' value='{{login.username}}' name='username'>
+        </form>
+    </div>
+    </div>
+    </div>
+    {% endfor %}
+</div>
 <form action='/home/removed' method='POST'>
-    <button type='submit'>back to listings</button>
+    <button class='btn-block btn-dark btn-large pt-2 pb-2'type='submit'><h5>My listings</h5></button>
     <input type='hidden' value='{{login.username}}' name='username'>
 </form>
 

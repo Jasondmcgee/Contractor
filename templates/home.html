@@ -1,20 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class='jumbotron text-center'>
 <h1>{{login.username}}</h1>
+</div>
 
+<div class="row">
     {% for item in items %}
+    <div class="col-sm-6">
+        <div class="card card-primary">
+        <div class="card-block">
+        <div class="card-body">
         <h1>{{item['title']}}</h1>
-        <p>{{item['description']}}</p>
-        <p>{{item['price']}}</p>
+        <p class="card-subtitle">{{item['description']}}</p>
+        <p>For the cheep price of {{item['price']}}$!!!!</p>
         <form action='/home/removed' method='POST'>
             <button type='submit'>delete posting</button>
             <input type='hidden' value="{{item['_id']}}" name='objid'>
             <input type='hidden' value="{{login.username}}" name='username'>
         </form>
+        </div>
+        </div>
+        </div>
+    </div>
     {% endfor %}
+</div>
+<br>
+<form action='/marketplace' method='GET'>
+    <button class="btn-dark btn-block pt-4 pb-4" type='submit'><h2>Get stuff!</h2></button>
+    <input type='hidden' value='{{login.username}}' name='username'>
+</form>
 
 <!-- get all the users posted items and list them card style -->
+<div class='jumbotron'>
+<h1>Post a new item!</h1>
+<br>
+<div class='container-fluid'>
 <form action='/marketplace' method='POST'>
     <h2>Item title</h2>
     <p><input type='text' name='title'></p>
@@ -24,6 +45,13 @@
     <p><input type='number' name='price'></p>
     <input type='hidden' value='{{login.username}}' name='username'>
     <button type=submit>Post item!</button>
+</form>
+</div>
+</div>
+
+<form action='/messages' method='POST'>
+    <button type='submit'>Comments</button>
+    <input type='hidden' value='{{login.username}}' name='username'>
 </form>
 
 

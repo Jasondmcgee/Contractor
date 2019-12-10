@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+<div class='jumbotron'>
+<h1 class="display-4">{{item['title']}}</h1>
+<hr class="my-4">
+<p class="lead">{{item['description']}}</p>
+<p class="lead">{{item['price']}}</p>
+<p>posting by {{item['username']}}</p>
+<form action='/send_message' method='POST'>
+    <button class="btn btn-success btn-lg" type='submit'>Comment</button>
+    <input type='hidden' value='{{login.username}}' name='username'>
+    <input type='hidden' value="{{item['_id']}}" name='item_id'>
+</form>
+</div>
+
+<form action='/marketplace' method='GET'>
+    <button class="btn btn-primary btn-block " type='submit'>view other items</button>
+    <input type='hidden' value='{{login.username}}' name='username'>
+</form>
+<br>
+<h2 class='text-center'>Comments</h2>
+{% for message in item['messages'] %}
+
+<div class='card'>
+    <h4 class='card-title'>{{message[1]}}</h4>
+    <p class='card-content'>{{message[0]}}</p>
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}
